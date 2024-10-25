@@ -1,0 +1,53 @@
+services:
+  api-cdb:
+    build:
+      dockerfile: api-cdb.Dockerfile
+      context: .
+    image: api-cdb
+    container_name: api-cdb    
+    ports:
+      - "5163:8080"    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://api-cdb:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 3 
+    networks:
+      - network-calculo-cdb
+ 
+  api:
+    build:
+      dockerfile: api.Dockerfile
+      context: .
+    image: api
+    container_name: api
+    depends_on:
+      api-cdb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://api:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - network-calculo-cdb   
+
+  app:
+    build:
+      dockerfile: app.Dockerfile
+      context: .
+    image: app
+    container_name: app
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "8090:5001"
+    networks:
+      - network-calculo-cdb
+
+networks:
+  network-calculo-cdb:
+    driver: bridge

@@ -1,0 +1,6 @@
+@ApiCdb_HostAddress = http://localhost:5163
+
+GET {{ApiCdb_HostAddress}}/cdb/
+Accept: application/json
+
+###

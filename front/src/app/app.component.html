@@ -1,0 +1,44 @@
+<main [class.min-h-screen]="!resultadoCalculo" class="h-8/12 flex bg-cor-primaria-var">    
+  <nav class="w-12/12">
+    <div class="w-12/12 flex flex-col pl-10 pt-10 max-md:w-10/12 max-sm:w-full">
+      <h1 class="font-bold text-4xl pb-12 text-white">Calculadora do CDB</h1>
+      <cdb-input id="valorAporte"
+                placeholder="Valor Aporte Inicial"
+                label="Qual valor você gostaria de investir inicialmente?"                
+                (valorFormatado)="formataValorAporte($event)"
+                (valor)="enviaAporteInicial($event)" />
+
+      <cdb-input id="quantidadeMeses"
+                placeholder="Prazo em Meses"
+                label="E o prazo máximo que deixaria seu dinheiro investido?"                
+                (valorFormatado)="formataQuantidadeDeMeses($event)"
+                (valor)="enviaPrazo($event)" />
+      <div *ngIf="erroPrazo" class="text-red-400">
+          O prazo deve ser superior a 1.
+      </div>
+
+      <cdb-button class="self-begin my-6"
+                 texto="SIMULAR"
+                 (click)="simular()" />
+    </div>    
+  </nav>  
+</main>
+<nav *ngIf="resultadoCalculo" class="w-12/12 h-4/12 w-full h-full flex-wrap flex-col pl-10 pt-10 bg-white border-cor-secundaria border-t-4">
+  <p class="font-bold text-3xl pb-4 self-end">
+    Valor Total Bruto: <span class="font-medium text-3xl text-green-500">
+      {{resultadoCalculo.valorBruto | currency: 'BRL' }}
+    </span>
+  </p>
+  <p class="font-bold text-3xl pb-4 self-end">
+    Valor Total Líquido: <span class="font-medium text-3xl text-green-500">
+      {{resultadoCalculo.valorLiquido | currency: 'BRL'}}
+    </span>
+  </p>      
+  <p class="font-bold text-3xl pb-4 self-end">
+    Imposto de Renda: <span class="font-medium text-3xl text-red-500">
+      {{resultadoCalculo.desconto | currency: 'BRL'}}
+    </span>
+  </p>
+</nav>
+
+<router-outlet />

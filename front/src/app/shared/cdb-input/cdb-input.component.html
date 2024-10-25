@@ -1,0 +1,9 @@
+<label class="font-semibold text-xl pt-6 pb-2 text-white"
+       for="{{id}}">{{label}}</label>
+
+<input class="h-10 w-full pl-2 border-solid border-2 rounded-md border-cor-primaria hover:border-cor-secundaria focus:border-cor-secundaria-var my-2"
+       id="{{id}}"
+       name="{{id}}"
+       placeholder="{{placeholder}}"
+       (input)="formatarValorReal($event)"
+       (blur)="enviaAporte($event.target)">
