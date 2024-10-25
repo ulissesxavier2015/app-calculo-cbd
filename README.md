@@ -30,7 +30,7 @@ Você pode rodar o projeto direto da sua máquina.
 
 1 - Abra o prompt de comando e faça o clone do projeto no github <br />
 ```sh
-git clone (https://github.com/ulissesxavier2015/app-calculo-cbd.git)
+git clone https://github.com/ulissesxavier2015/app-calculo-cbd.git
 ```
 
 2 - Acesse a pasta do projeto <br />
